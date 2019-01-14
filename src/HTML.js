@@ -383,7 +383,7 @@ export default class HTML extends PureComponent {
      * @memberof HTML
      */
     renderRNElements (RNElements, parentWrapper = 'root', parentIndex = 0, props = this.props) {
-        const { tagsStyles, classesStyles, emSize, ptSize, ignoredStyles, allowedStyles, baseFontStyle, showMore } = props;
+        const { tagsStyles, classesStyles, emSize, ptSize, ignoredStyles, allowedStyles, baseFontStyle, showMore='查看全文' } = props;
         return RNElements && RNElements.length ? RNElements.map((element, index) => {
             const { attribs, data, tagName, parentTag, children, nodeIndex, wrapper } = element;
             const Wrapper = wrapper === 'Text' ? Text : View;
