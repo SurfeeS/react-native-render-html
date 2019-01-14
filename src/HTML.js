@@ -14,6 +14,7 @@ import {
 import { generateDefaultBlockStyles, generateDefaultTextStyles } from './HTMLDefaultStyles';
 import htmlparser2 from 'htmlparser2';
 import * as HTMLRenderers from './HTMLRenderers';
+import { toASCII } from 'punycode';
 
 export default class HTML extends PureComponent {
     static propTypes = {
@@ -382,7 +383,7 @@ export default class HTML extends PureComponent {
      * @memberof HTML
      */
     renderRNElements (RNElements, parentWrapper = 'root', parentIndex = 0, props = this.props) {
-        const { tagsStyles, classesStyles, emSize, ptSize, ignoredStyles, allowedStyles, baseFontStyle } = props;
+        const { tagsStyles, classesStyles, emSize, ptSize, ignoredStyles, allowedStyles, baseFontStyle, showMore } = props;
         return RNElements && RNElements.length ? RNElements.map((element, index) => {
             const { attribs, data, tagName, parentTag, children, nodeIndex, wrapper } = element;
             const Wrapper = wrapper === 'Text' ? Text : View;
@@ -443,7 +444,12 @@ export default class HTML extends PureComponent {
                           allowedStyles
                       })}
                 >
-                    { data }
+                    {
+                        data.length > 115 && showMore ? data.substring(0, 115) : data
+                    }
+                    {
+                        data.length > 115 && showMore ? <Text style={{color: '#4b78aa'}}>...{showMore}</Text> : null
+                    }
                 </Text> :
                 false;
 

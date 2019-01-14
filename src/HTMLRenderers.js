@@ -54,15 +54,15 @@ export function img (htmlAttribs, children, convertedCSSStyles, passProps = {}) 
             activeOpacity={0.7}
         >
             <HTMLImage
-            source={{ uri: src }}
-            alt={alt}
-            width={width}
-            height={height}
-            style={style}
-            {...passProps}
+                source={{ uri: src }}
+                alt={alt}
+                width={width}
+                height={height}
+                style={style}
+                {...passProps}
             />
         </TouchableOpacity>
-        
+
     );
 }
 
@@ -156,7 +156,7 @@ export function iframe (htmlAttribs, children, convertedCSSStyles, passProps) {
 
 export function br (htlmAttribs, children, convertedCSSStyles, passProps) {
     return (
-        <Text style={{ height: 1.2 * passProps.emSize, flex: 1 }} key={passProps.key}>{"\n"}</Text>
+        <Text style={{ height: 1.2 * passProps.emSize, flex: 1 }} key={passProps.key}>{'\n'}</Text>
     );
 }
 
