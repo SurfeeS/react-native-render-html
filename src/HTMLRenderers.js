@@ -44,15 +44,25 @@ export function img (htmlAttribs, children, convertedCSSStyles, passProps = {}) 
         styleSet: 'IMAGE'
     });
     const { src, alt, width, height } = htmlAttribs;
+    const { onLinkPress } = passProps;
+    const onPress = (evt) => onLinkPress && htmlAttribs && src ?
+        onLinkPress(evt, `imageSource${src}`, htmlAttribs) :
+        undefined;
     return (
-        <HTMLImage
-          source={{ uri: src }}
-          alt={alt}
-          width={width}
-          height={height}
-          style={style}
-          {...passProps}
-        />
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={0.7}
+        >
+            <HTMLImage
+            source={{ uri: src }}
+            alt={alt}
+            width={width}
+            height={height}
+            style={style}
+            {...passProps}
+            />
+        </TouchableOpacity>
+        
     );
 }
 
