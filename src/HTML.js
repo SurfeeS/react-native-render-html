@@ -276,7 +276,8 @@ export default class HTML extends PureComponent {
                 // Text without tags, these can be mapped to the Text wrapper
                 return {
                     wrapper: 'Text',
-                    data: data.replace(/(\r\n|\n|\r)/gm, ''), // remove linebreaks
+                    // data: data.replace(/(\r\n|\n|\r)/gm, ''), // remove linebreaks
+                    data, // remove linebreaks
                     attribs: attribs || {},
                     parent,
                     parentTag: parent && parent.name,
