@@ -132,10 +132,42 @@ export default class HTML extends PureComponent {
     }
 
     parseDOM (dom, props = this.props) {
-        const { decodeEntities, debug, onParsed } = this.props;
+        const { decodeEntities, debug, onParsed, showMore } = this.props;
         const parser = new htmlparser2.Parser(
             new htmlparser2.DomHandler((_err, dom) => {
-                let RNElements = this.mapDOMNodesTORNElements(dom, false, props);
+                // 如果展示查看更多，则不展示后续的dom
+                let strLength = 0;
+                let nodeIndex = 0;
+                let domArr = [];
+                if (showMore && dom && Array.isArray(dom) && dom.length > 0 ){
+                    for( let i = 0; i < dom.length; i++){
+                        if(dom[i].data){
+                            strLength = dom[i].data.length + strLength;
+                        } else{
+                            if(dom[i].children[0].data){
+                                strLength = dom[i].children[0].data.length + strLength;
+                            }
+                        }
+                        // strLength = dom[i].data ? dom[i].data.length + strLength : (dom[i].children[0].data ? dom[i].children[0].data.length : 0 + strLength);
+                        if(strLength > 100){
+                            nodeIndex = i;
+                            i === 0 ? domArr.push(dom[0]) : null;
+                            domArr.push({
+                                data: `...${showMore}`,
+                                type: 'text',
+                            })
+                            // i === 0 ? domArr.push(dom[0]) : domArr.pop();
+                            break;
+                        } else {
+                            domArr.push(dom[i]);
+                        }
+                    }
+                    
+                } else {
+                    domArr=dom;
+                }
+
+                let RNElements = this.mapDOMNodesTORNElements(domArr, false, props);
                 if (onParsed) {
                     const alteredRNElements = onParsed(dom, RNElements);
                     if (alteredRNElements) {
@@ -446,10 +478,7 @@ export default class HTML extends PureComponent {
                       })}
                 >
                     {
-                        data.length > 115 && showMore ? data.substring(0, 115) : data
-                    }
-                    {
-                        data.length > 115 && showMore ? <Text style={{color: '#4b78aa'}}>...{showMore}</Text> : null
+                        data === `...${showMore}` ? <Text style={{color: '#4b78aa'}}>...{showMore}</Text> : data
                     }
                 </Text> :
                 false;
@@ -469,7 +498,9 @@ export default class HTML extends PureComponent {
             return (
                 <Wrapper key={key} style={style} {...renderersProps}>
                     { textElement }
-                    { childElements }
+                    {
+                     childElements
+                    }
                 </Wrapper>
             );
         }) : false;
