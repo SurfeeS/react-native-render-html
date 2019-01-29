@@ -144,11 +144,10 @@ export default class HTML extends PureComponent {
                         if(dom[i].data){
                             strLength = dom[i].data.length + strLength;
                         } else{
-                            if(dom[i].children[0].data){
+                            if(dom[i].children && dom[i].children.length > 0 && dom[i].children[0].data){
                                 strLength = dom[i].children[0].data.length + strLength;
                             }
                         }
-                        // strLength = dom[i].data ? dom[i].data.length + strLength : (dom[i].children[0].data ? dom[i].children[0].data.length : 0 + strLength);
                         if(strLength > 100){
                             nodeIndex = i;
                             i === 0 ? domArr.push(dom[0]) : null;
