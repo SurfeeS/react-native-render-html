@@ -38,8 +38,8 @@ export function generateDefaultTextStyles (baseFontSize = BASE_FONT_SIZE) {
             color: '#245dc1'
         },
         h1: _generateHeadingStyle(baseFontSize, 2, 0.67),
-        h2: _generateHeadingStyle(baseFontSize, 1.5, 0.83),
-        h3: _generateHeadingStyle(baseFontSize, 1.17, 1),
+        h2: _generateHeadingStyle(baseFontSize, 1, 0.83),
+        h3: _generateHeadingStyle(baseFontSize, 1, 1),
         h4: _generateHeadingStyle(baseFontSize, 1, 1.33),
         h5: _generateHeadingStyle(baseFontSize, 0.83, 1.67),
         h6: _generateHeadingStyle(baseFontSize, 0.67, 2.33),
@@ -70,8 +70,8 @@ export function generateDefaultTextStyles (baseFontSize = BASE_FONT_SIZE) {
 function _generateHeadingStyle (baseFontSize, fontMultiplier, marginMultiplier) {
     return {
         fontSize: baseFontSize * fontMultiplier,
-        marginTop: (baseFontSize * fontMultiplier) * marginMultiplier,
-        marginBottom: (baseFontSize * fontMultiplier) * marginMultiplier,
+        // marginTop: (baseFontSize * fontMultiplier) * marginMultiplier,
+        // marginBottom: (baseFontSize * fontMultiplier) * marginMultiplier,
         fontWeight: 'bold'
     };
 }
