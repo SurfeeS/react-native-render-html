@@ -137,7 +137,6 @@ export default class HTML extends PureComponent {
             new htmlparser2.DomHandler((_err, dom) => {
                 // 如果展示查看更多，则不展示后续的dom
                 let strLength = 0;
-                let nodeIndex = 0;
                 let domArr = [];
                 if (showMore && dom && Array.isArray(dom) && dom.length > 0 ){
                     for( let i = 0; i < dom.length; i++){
@@ -149,13 +148,19 @@ export default class HTML extends PureComponent {
                             }
                         }
                         if(strLength > 100){
-                            nodeIndex = i;
-                            i === 0 ? domArr.push(dom[0]) : null;
+                            // i === 0 ? domArr.push(dom[0]) : null;
+                            // dom[i].data ? domArr.push(dom[i]) : null;
+
+                            if (i === 0){
+                                domArr.push(dom[0])
+                            } else if(dom[i].data){
+                                domArr.push(dom[i])
+                            }
+                            
                             domArr.push({
                                 data: `...${showMore}`,
                                 type: 'text',
-                            })
-                            // i === 0 ? domArr.push(dom[0]) : domArr.pop();
+                            });
                             break;
                         } else {
                             domArr.push(dom[i]);
