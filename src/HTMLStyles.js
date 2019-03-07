@@ -13,7 +13,7 @@ export function cssStringToObject (str) {
         .map((prop) => prop.split(':'))
         .reduce((acc, prop) => {
             if (prop.length === 2) {
-                acc[prop[0].trim()] = prop[1].trim();
+                acc[prop[0].trim()] = prop[1].trim().replace('start', 'left').replace('end', 'right');
             }
             return acc;
         }, {});
